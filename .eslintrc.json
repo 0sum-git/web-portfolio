@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": ["error", {
+      "ignoreRestArgs": true,
+      "fixToUnknown": false
+    }],
+    "@typescript-eslint/no-require-imports": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-console": ["warn", { 
+      "allow": ["warn", "error", "info"] 
+    }],
+    "no-debugger": "error",
+    "no-duplicate-imports": "error",
+    "no-unused-expressions": "error",
+    "prefer-const": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["src/scripts/**/*.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
+}

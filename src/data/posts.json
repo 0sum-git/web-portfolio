@@ -1,0 +1,61 @@
+[
+  {
+    "id": "1",
+    "title": "csv web visualizer",
+    "description": "a flask web application for efficient viewing of large csv files. features server-side processing, search across all columns, and custom sorting.",
+    "slug": "csv-web-visualizer",
+    "githubUrl": "https://github.com/0sum-git/csv-web-visualizer",
+    "imageUrl": "/images/projects/csv-visualizer.png",
+    "technologies": ["python", "flask", "pandas", "datatables"],
+    "features": [
+      "python 3.8+",
+      "flask >= 2.0",
+      "pandas >= 1.0",
+      "server-side processing",
+      "search functionality",
+      "sortable columns"
+    ],
+    "createdAt": "2024-03-20T00:00:00.000Z",
+    "updatedAt": "2024-03-20T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "title": "cool go cli to-do list",
+    "description": "a command-line task list application developed in go, featuring an interactive interface and persistent storage.",
+    "slug": "cool-go-cli-to-do-list",
+    "githubUrl": "https://github.com/0sum-git/cool-go-cli-to-do-list",
+    "imageUrl": "/images/projects/go-todo.png",
+    "technologies": ["go", "json", "terminal ui"],
+    "features": [
+      "go programming language",
+      "github.com/eiannone/keyboard",
+      "encoding/json",
+      "bufio",
+      "os",
+      "strings",
+      "unicode/utf8",
+      "fmt"
+    ],
+    "createdAt": "2024-03-20T00:00:00.000Z",
+    "updatedAt": "2024-03-20T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "title": "encrypted chatroom",
+    "description": "a secure end-to-end encrypted chat application with a command-line interface.",
+    "slug": "encrypted-chatroom",
+    "githubUrl": "https://github.com/0sum-git/an-encrypted-chatroom",
+    "imageUrl": "/images/projects/encrypted-chat.png",
+    "technologies": ["python", "cryptography", "socket programming"],
+    "features": [
+      "python 3.8+",
+      "cryptography==41.0.7",
+      "end-to-end encryption",
+      "real-time messaging",
+      "message history",
+      "multiple client support"
+    ],
+    "createdAt": "2024-03-20T00:00:00.000Z",
+    "updatedAt": "2024-03-20T00:00:00.000Z"
+  }
+]

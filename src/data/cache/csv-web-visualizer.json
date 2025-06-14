@@ -1,0 +1,13 @@
+{
+  "timestamp": 1749857678013,
+  "data": {
+    "name": "csv-web-visualizer",
+    "description": "Python Flask web app designed for efficient viewing of large CSV files.",
+    "readme": "# csv-web-visualizer \n\na simple CSV file viewer with server-side processing using Flask and DataTables.\n\n\n\n## features  \n\n- server-side processing  \n- search across all columns  \n- sortable columns  \n- custom input to set number of entries per page  \n\n\n\n## installation\n\n```bash\ngit clone https://github.com/0sum-git/csv-web-visualizer.git\ncd csv-viewer\npython -m venv venv\nsource venv/bin/activate # linux & macos :)\nvenv\\Scripts\\activate # windows :)\npip install -r requirements.txt\n```\n\n\n\n## usage  \n\n```bash\npython csv-web-visualizer.py yourfile.csv\n```\n\nopen [http://localhost:5000](http://localhost:5000) in your browser. \n\n\n\n## requirements  \n\nFlask >= 2.0\npandas >= 1.0\n",
+    "stars": 0,
+    "language": "Python",
+    "topics": [],
+    "updated_at": "2025-06-11T14:05:30Z",
+    "url": "https://github.com/0sum-git/csv-web-visualizer"
+  }
+}
