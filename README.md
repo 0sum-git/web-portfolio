@@ -1,18 +1,15 @@
-# modern portfolio website
+#  portfolio website
 
-a modern, responsive portfolio website built with next.js and tailwind css, featuring smooth animations and a clean design.
+portfolio website built with next.js and tailwind css, featuring smooth animations and a clean design :)
 
 ## 📋 features
 
-- responsive design
 - dark/light mode
 - smooth page transitions
 - dynamic project showcase
 - github integration
-- contact form
 - interactive ui elements
 - animated components
-- seo optimized
 
 ## 🛠️ technologies used
 
@@ -22,8 +19,6 @@ a modern, responsive portfolio website built with next.js and tailwind css, feat
 - lucide-react - icons
 - typescript - type safety
 - github api - project data
-- react-hook-form - form handling
-- nodemailer - email handling
 
 ## 📥 installation
 
@@ -86,13 +81,3 @@ interface project {
   updated_at: string;
 }
 ```
-
-## 🎨 design features
-
-- minimalistic design
-- smooth transitions
-- interactive cards
-- responsive layout
-- custom animations
-- consistent typography
-- accessible color scheme
