@@ -23,6 +23,8 @@ body {
   -ms-overflow-style: none; /* Internet Explorer and Edge */
   scrollbar-width: none; /* Firefox */
   text-transform: lowercase;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body::-webkit-scrollbar {
@@ -125,4 +127,48 @@ textarea {
   position: absolute;
   bottom: 1.625rem;
   right: 1.5rem;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+  .project-card {
+    margin: 0 1rem;
+  }
+
+  .project-card-header {
+    height: 6rem;
+  }
+
+  .project-card-content {
+    padding: 1rem;
+  }
+
+  .tech-tags-container {
+    gap: 0.25rem;
+  }
+
+  .tech-tag {
+    padding: 0.15rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .stars-tag {
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .project-card-header {
+    height: 5rem;
+  }
+
+  .project-card-content {
+    padding: 0.75rem;
+  }
 }

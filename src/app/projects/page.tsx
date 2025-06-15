@@ -39,7 +39,7 @@ export default function ProjectsPage() {
   if (loading) {
     return (
       <PageTransition>
-        <main className="min-h-screen bg-background text-foreground pt-32">
+        <main className="min-h-screen bg-background text-foreground pt-16 md:pt-32">
           <div className="container mx-auto max-w-6xl px-4 sm:px-6 md:px-8 lg:px-12">
             <div className="text-center">
               <p className="text-muted">loading projects...</p>
@@ -52,21 +52,21 @@ export default function ProjectsPage() {
 
   return (
     <PageTransition>
-      <main className="min-h-screen bg-background text-foreground pt-32 pb-32">
+      <main className="min-h-screen bg-background text-foreground pt-16 md:pt-32 pb-16 md:pb-32">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 md:px-8 lg:px-12">
           <motion.div
-            className="mb-16"
+            className="mb-8 md:mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl font-bold mb-4">projects</h1>
-            <p className="text-muted max-w-2xl mt-3">
+            <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">projects</h1>
+            <p className="text-muted max-w-2xl mt-2 md:mt-3">
               a collection of my open source projects and contributions
             </p>
           </motion.div>
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}

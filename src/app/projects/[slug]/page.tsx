@@ -79,42 +79,42 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     const project = await getProject(slug);
 
     return (
-      <main className="min-h-screen bg-background text-foreground pt-32 pb-32">
+      <main className="min-h-screen bg-background text-foreground pt-16 md:pt-32 pb-16 md:pb-32">
         <div className="container mx-auto max-w-4xl px-4">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 text-muted hover:text-foreground transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-muted hover:text-foreground transition-colors mb-6 md:mb-8"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>back to projects</span>
           </Link>
 
           <div className="prose prose-invert max-w-none">
-            <h1 className="text-4xl font-bold mb-4">{project.name}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">{project.name}</h1>
             {project.description && (
-              <p className="text-xl text-muted mb-8">{project.description}</p>
+              <p className="text-lg md:text-xl text-muted mb-6 md:mb-8">{project.description}</p>
             )}
 
-            <div className="flex flex-wrap gap-4 mb-8">
+            <div className="flex flex-wrap gap-2 md:gap-4 mb-6 md:mb-8">
               {project.language && (
-                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                <span className="px-2 md:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs md:text-sm">
                   {project.language}
                 </span>
               )}
               {project.topics?.map((topic: string, index: number) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
+                  className="px-2 md:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs md:text-sm"
                 >
                   {topic}
                 </span>
               ))}
-              <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+              <span className="px-2 md:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs md:text-sm">
                 ⭐ {project.stars} stars
               </span>
             </div>
 
-            <div className="border-t border-border pt-8">
+            <div className="border-t border-border pt-6 md:pt-8">
               <ProjectMarkdown content={project.readme} />
             </div>
           </div>
@@ -123,10 +123,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     );
   } catch (error) {
     return (
-      <main className="min-h-screen bg-background text-foreground p-8 pt-32">
+      <main className="min-h-screen bg-background text-foreground p-8 pt-16 md:pt-32">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">project not found</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">project not found</h1>
             <p className="text-muted">
               the project you are looking for does not exist or is not accessible
             </p>

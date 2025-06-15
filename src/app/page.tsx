@@ -39,10 +39,10 @@ export default function HomePage() {
 
   return (
     <PageTransition>
-      <main className="h-screen bg-background text-foreground relative overflow-hidden" style={{ overflow: 'hidden' }}>
+      <main className="min-h-screen bg-background text-foreground relative overflow-x-hidden">
         <div className="relative z-10 h-full">
-          <div className="container mx-auto px-4 h-full flex flex-col justify-center -mt-[80px]">
-            <div className="max-w-2xl">
+          <div className="container mx-auto px-4 sm:px-6 h-full flex flex-col justify-center py-8 sm:py-0 sm:mt-[70px] sm:mr-[200px] md:mr-[200px]">
+            <div className="max-w-2xl mx-auto md:mx-0">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -51,12 +51,12 @@ export default function HomePage() {
                 <div>
                   <Terminal className="w-6 h-6 mb-3" />
                 </div>
-                <h1 className="text-2xl font-bold mb-2 tracking-tight">
+                <h1 className="text-xl sm:text-2xl font-bold mb-2 tracking-tight">
                   cybersecurity &
                   <br />
                   software developer
                 </h1>
-                <p className="text-sm text-muted mb-3">
+                <p className="text-xs sm:text-sm text-muted mb-3">
                   building secure systems and exceptional digital experiences.
                 </p>
               </motion.div>
@@ -114,23 +114,23 @@ export default function HomePage() {
               </motion.div>
 
               <motion.div
-                className="mt-16"
+                className="mt-8 sm:mt-16"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-xl font-bold mb-2">hi, i&apos;m rodrigo</p>
-                <p className="text-sm text-muted mb-6">and welcome to my portfolio</p>
+                <p className="text-lg sm:text-xl font-bold mb-2">hi, i&apos;m rodrigo</p>
+                <p className="text-xs sm:text-sm text-muted mb-4 sm:mb-6">and welcome to my portfolio</p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <motion.div
-                    className="space-y-3"
+                    className="space-y-2 sm:space-y-3"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6 }}
                   >
-                    <h2 className="text-xl font-bold">about me</h2>
-                    <p className="text-sm text-muted">
+                    <h2 className="text-lg sm:text-xl font-bold">about me</h2>
+                    <p className="text-xs sm:text-sm text-muted">
                       i&apos;m a recent graduate in cybersecurity who loves software engineering and
                       cybersecurity projects. i&apos;m passionate about creating secure and
                       innovative software solutions. always eager to explore new technologies and
@@ -138,14 +138,14 @@ export default function HomePage() {
                     </p>
                   </motion.div>
                   <motion.div
-                    className="space-y-4"
+                    className="space-y-3 sm:space-y-4"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.7 }}
                   >
-                    <h2 className="text-2xl font-bold">skills</h2>
+                    <h2 className="text-lg sm:text-xl font-bold">skills</h2>
                     <motion.div
-                      className="flex flex-wrap gap-2"
+                      className="flex flex-wrap gap-1.5 sm:gap-2"
                       variants={containerVariants}
                       initial="hidden"
                       animate="visible"
@@ -165,7 +165,7 @@ export default function HomePage() {
                           key={skill}
                           variants={itemVariants}
                           whileHover={{ scale: 1.05, backgroundColor: 'rgba(var(--primary), 0.2)' }}
-                          className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs border border-primary/20 hover:border-primary/40 transition-all duration-300"
+                          className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] sm:text-xs border border-primary/20 hover:border-primary/40 transition-all duration-300"
                         >
                           {skill}
                         </motion.span>
