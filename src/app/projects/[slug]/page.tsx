@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { Octokit } from '@octokit/rest';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import ProjectMarkdown from '@/components/ProjectMarkdown';
+import { ProjectMarkdown } from '@/components/ProjectMarkdown';
 import { getFromCache, saveToCache } from '@/lib/cache';
 
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME || '';

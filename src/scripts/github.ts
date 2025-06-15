@@ -3,6 +3,7 @@ import { Octokit } from '@octokit/rest';
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
   baseUrl: 'https://api.github.com',
+  timeZone: 'Europe/Lisbon',
 });
 
 export interface Project {

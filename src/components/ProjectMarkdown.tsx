@@ -1,6 +1,7 @@
-import ReactMarkdown from 'react-markdown';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ComponentPropsWithoutRef } from 'react';
 
@@ -10,9 +11,10 @@ interface ProjectMarkdownProps {
 
 interface CodeProps extends ComponentPropsWithoutRef<'code'> {
   inline?: boolean;
+  className?: string;
 }
 
-export default function ProjectMarkdown({ content }: ProjectMarkdownProps) {
+export function ProjectMarkdown({ content }: ProjectMarkdownProps) {
   return (
     <div className="prose prose-invert max-w-none">
       <ReactMarkdown
@@ -22,8 +24,7 @@ export default function ProjectMarkdown({ content }: ProjectMarkdownProps) {
             const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (
               <SyntaxHighlighter
-                // @ts-expect-error - vscDarkPlus type is not properly exported
-                style={vscDarkPlus}
+                style={vscDarkPlus as any}
                 language={match[1]}
                 PreTag="div"
                 {...props}

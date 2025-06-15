@@ -2,16 +2,6 @@ import { NextResponse } from 'next/server';
 
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME;
 
-interface GitHubRepo {
-  name: string;
-  description: string | null;
-  html_url: string;
-  stargazers_count: number;
-  language: string | null;
-  topics: string[];
-  updated_at: string;
-}
-
 const projectTechnologies: Record<string, string[]> = {
   portfolio: ['Next.js', 'TypeScript', 'Tailwind CSS', 'React', 'Node.js'],
   'crypto-tracker': ['React', 'TypeScript', 'Tailwind CSS', 'CoinGecko API'],
@@ -22,6 +12,16 @@ const projectTechnologies: Record<string, string[]> = {
   ecommerce: ['Next.js', 'TypeScript', 'Stripe', 'Tailwind CSS', 'Prisma'],
   dashboard: ['React', 'TypeScript', 'Chart.js', 'Tailwind CSS'],
 };
+
+interface GithubRepo {
+  name: string;
+  description: string;
+  html_url: string;
+  stargazers_count: number;
+  language: string;
+  topics?: string[];
+  updated_at: string;
+}
 
 export const revalidate = 3600;
 
@@ -46,7 +46,7 @@ export async function GET() {
 
     const data = await res.json();
 
-    const repos = data.map((repo: GitHubRepo) => ({
+    const repos = data.map((repo: GithubRepo) => ({
       name: repo.name,
       description: repo.description,
       url: repo.html_url,
@@ -57,8 +57,8 @@ export async function GET() {
     }));
 
     return NextResponse.json(repos);
-  } catch (error) {
-    console.error('Error fetching repositories:', error);
-    return NextResponse.json({ error: 'Failed to fetch repositories' }, { status: 500 });
+  } catch (error: unknown) {
+    console.error('Error fetching repos:', error);
+    return NextResponse.json({ error: 'Failed to fetch repos' }, { status: 500 });
   }
 }
