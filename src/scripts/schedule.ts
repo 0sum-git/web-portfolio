@@ -1,25 +1,48 @@
-import { exec } from 'child_process';
+import { Octokit } from '@octokit/rest';
+import { getProjectBySlug } from './github';
+import fs from 'fs';
 import path from 'path';
 
-const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+  baseUrl: 'https://api.github.com',
+});
 
-function runFetchRepos(): void {
-  const scriptPath = path.join(process.cwd(), 'src/scripts/fetchRepos.ts');
-  exec(`ts-node ${scriptPath}`, (error: Error | null, stdout: string, stderr: string) => {
-    if (error) {
-      console.error(`error running script: ${error}`);
-      return;
-    }
-    if (stderr) {
-      console.error(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-  });
+const CACHE_DIR = path.join(process.cwd(), 'src/data/cache');
+
+if (!fs.existsSync(CACHE_DIR)) {
+  fs.mkdirSync(CACHE_DIR, { recursive: true });
 }
 
-// Executa imediatamente na primeira vez
-runFetchRepos();
+async function updateCache() {
+  try {
+    const repos = await octokit.repos.listForUser({
+      username: process.env.GITHUB_USERNAME || '',
+      sort: 'updated',
+      direction: 'desc',
+    });
 
-// Agenda para executar a cada 24 horas
-setInterval(runFetchRepos, TWENTY_FOUR_HOURS);
+    for (const repo of repos.data) {
+      const project = await getProjectBySlug(repo.name);
+      if (project) {
+        const cacheFile = path.join(CACHE_DIR, `${repo.name}.json`);
+        fs.writeFileSync(
+          cacheFile,
+          JSON.stringify(
+            {
+              timestamp: Date.now(),
+              data: project,
+            },
+            null,
+            2
+          )
+        );
+      }
+    }
+  } catch (error) {
+    console.error('Error updating cache:', error);
+  }
+}
+
+updateCache();
+setInterval(updateCache, 24 * 60 * 60 * 1000);

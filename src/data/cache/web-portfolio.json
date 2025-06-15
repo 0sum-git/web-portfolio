@@ -1,0 +1,13 @@
+{
+  "timestamp": 1749994022953,
+  "data": {
+    "name": "web-portfolio",
+    "description": "web portfolio built with next.js and tailwind css.",
+    "readme": "#  portfolio website\n\nportfolio website built with next.js and tailwind css, featuring smooth animations and a clean design :)\n\n## 📋 features\n\n- dark/light mode\n- smooth page transitions\n- dynamic project showcase\n- github integration\n- interactive ui elements\n- animated components\n\n## 🛠️ technologies used\n\n- next.js - react framework\n- tailwind css - styling\n- framer-motion - animations\n- lucide-react - icons\n- typescript - type safety\n- github api - project data\n\n## 📥 installation\n\nensure you have node.js installed on your system.\n\nclone the repository:\n\n```bash\ngit clone https://github.com/0sum-git/portfolio\n```\n\ninstall dependencies:\n\n```bash\nnpm install\n```\n\n## 🚀 how to run\n\ndevelopment mode:\n\n```bash\nnpm run dev\n```\n\nbuild for production:\n\n```bash\nnpm run build\n```\n\nstart production server:\n\n```bash\nnpm start\n```\n\n## 📝 project structure\n\n```\nsrc/\n├── app/              # app router pages\n├── components/       # react components\n├── lib/             # utility functions\n├── styles/          # global styles\n└── types/           # typescript types\n```\n\n## 💾 data management\n\nprojects are fetched from github api and stored in a structured format:\n\n```typescript\ninterface project {\n  name: string;\n  description: string;\n  stars: number;\n  language: string;\n  topics: string[];\n  updated_at: string;\n}\n```",
+    "stars": 0,
+    "language": "TypeScript",
+    "topics": [],
+    "updated_at": "2025-06-14T00:46:06Z",
+    "url": "https://github.com/0sum-git/web-portfolio"
+  }
+}

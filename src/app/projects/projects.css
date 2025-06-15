@@ -1,0 +1,20 @@
+main[data-page="projects"] {
+  overflow-y: auto;
+  height: 100vh;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+main[data-page="projects"]::-webkit-scrollbar {
+  display: none;
+}
+
+main[data-page="projects"] .container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+main[data-page="projects"] .grid {
+  flex: 1;
+} 

@@ -1,35 +1,23 @@
-import { Github, ArrowLeft } from 'lucide-react';
-import { Octokit } from '@octokit/rest';
-import ProjectMarkdown from '@/components/ProjectMarkdown';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import fs from 'fs';
-import path from 'path';
+import { Octokit } from '@octokit/rest';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import ProjectMarkdown from '@/components/ProjectMarkdown';
+import { getFromCache, saveToCache } from '@/lib/cache';
 
-const GITHUB_USERNAME = '0sum-git';
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const CACHE_DIR = path.join(process.cwd(), 'src/data/cache');
-const CACHE_DURATION = 24 * 60 * 60 * 1000;
+const GITHUB_USERNAME = process.env.GITHUB_USERNAME || '';
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
 
-if (!GITHUB_TOKEN) throw new Error('github_token is not defined');
-
-if (!fs.existsSync(CACHE_DIR)) fs.mkdirSync(CACHE_DIR, { recursive: true });
+if (!GITHUB_USERNAME) throw new Error('GITHUB_USERNAME is not defined');
+if (!GITHUB_TOKEN) throw new Error('GITHUB_TOKEN is not defined');
 
 const octokit = new Octokit({
   auth: GITHUB_TOKEN,
-  timeZone: 'UTC',
   baseUrl: 'https://api.github.com',
-  log: {
-    debug: () => {},
-    info: () => {},
-    warn: console.warn,
-    error: console.error,
-  },
 });
 
-interface CacheData {
-  timestamp: number;
-  data: ProjectData;
+interface OctokitError {
+  status?: number;
 }
 
 interface ProjectData {
@@ -43,39 +31,11 @@ interface ProjectData {
   url: string;
 }
 
-interface OctokitError {
-  status?: number;
-  message?: string;
-}
-
-function getCachePath(slug: string): string {
-  return path.join(CACHE_DIR, `${slug}.json`);
-}
-
-function isCacheValid(cachePath: string): boolean {
-  if (!fs.existsSync(cachePath)) return false;
-  const cache: CacheData = JSON.parse(fs.readFileSync(cachePath, 'utf-8'));
-  return Date.now() - cache.timestamp < CACHE_DURATION;
-}
-
-function saveToCache(slug: string, data: ProjectData): void {
-  const cachePath = getCachePath(slug);
-  const cacheData: CacheData = { timestamp: Date.now(), data };
-  fs.writeFileSync(cachePath, JSON.stringify(cacheData, null, 2));
-}
-
-function getFromCache(slug: string): ProjectData | null {
-  const cachePath = getCachePath(slug);
-  if (!isCacheValid(cachePath)) return null;
-  const cache: CacheData = JSON.parse(fs.readFileSync(cachePath, 'utf-8'));
-  return cache.data;
-}
-
 async function getProject(slug: string): Promise<ProjectData> {
   if (!/^[a-zA-Z0-9-_]+$/.test(slug)) throw new Error('invalid repository name');
 
   try {
-    const cachedData = getFromCache(slug);
+    const cachedData = getFromCache<ProjectData>(slug);
     if (cachedData) return cachedData;
 
     const [repo, readme] = await Promise.all([
@@ -119,26 +79,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     const project = await getProject(slug);
 
     return (
-      <main className="min-h-screen bg-background text-foreground p-8 pt-32">
-        <div className="container mx-auto max-w-4xl">
-          <div className="flex items-center justify-between mb-8">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 text-muted hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span>back to projects</span>
-            </Link>
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-muted hover:text-foreground transition-colors"
-            >
-              <Github className="w-5 h-5" />
-              <span>view on github</span>
-            </a>
-          </div>
+      <main className="min-h-screen bg-background text-foreground pt-32 pb-32">
+        <div className="container mx-auto max-w-4xl px-4">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 text-muted hover:text-foreground transition-colors mb-8"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>back to projects</span>
+          </Link>
 
           <div className="prose prose-invert max-w-none">
             <h1 className="text-4xl font-bold mb-4">{project.name}</h1>

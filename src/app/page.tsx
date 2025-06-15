@@ -4,6 +4,7 @@ import { Terminal, Github, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import PageTransition from '@/components/PageTransition';
+import { useEffect } from 'react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -29,29 +30,33 @@ const itemVariants = {
 };
 
 export default function HomePage() {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
     <PageTransition>
-      <main className="min-h-screen bg-background text-foreground relative">
-        <div className="relative z-10">
-          <div className="container mx-auto px-4 pt-32">
+      <main className="h-screen bg-background text-foreground relative overflow-hidden" style={{ overflow: 'hidden' }}>
+        <div className="relative z-10 h-full">
+          <div className="container mx-auto px-4 h-full flex flex-col justify-center -mt-[80px]">
             <div className="max-w-2xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                >
-                  <Terminal className="w-12 h-12 mb-6" />
-                </motion.div>
-                <h1 className="text-5xl font-bold mb-4 tracking-tight">
+                <div>
+                  <Terminal className="w-6 h-6 mb-3" />
+                </div>
+                <h1 className="text-2xl font-bold mb-2 tracking-tight">
                   cybersecurity &
                   <br />
                   software developer
                 </h1>
-                <p className="text-lg text-muted mb-8">
+                <p className="text-sm text-muted mb-3">
                   building secure systems and exceptional digital experiences.
                 </p>
               </motion.div>
@@ -114,18 +119,18 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-2xl font-bold mb-2">hi, i&apos;m rodrigo</p>
-                <p className="text-lg text-muted mb-8">and welcome to my portfolio</p>
+                <p className="text-xl font-bold mb-2">hi, i&apos;m rodrigo</p>
+                <p className="text-sm text-muted mb-6">and welcome to my portfolio</p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <motion.div
-                    className="space-y-4"
+                    className="space-y-3"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6 }}
                   >
-                    <h2 className="text-2xl font-bold">about me</h2>
-                    <p className="text-muted">
+                    <h2 className="text-xl font-bold">about me</h2>
+                    <p className="text-sm text-muted">
                       i&apos;m a recent graduate in cybersecurity who loves software engineering and
                       cybersecurity projects. i&apos;m passionate about creating secure and
                       innovative software solutions. always eager to explore new technologies and
@@ -140,7 +145,7 @@ export default function HomePage() {
                   >
                     <h2 className="text-2xl font-bold">skills</h2>
                     <motion.div
-                      className="flex flex-wrap gap-3"
+                      className="flex flex-wrap gap-2"
                       variants={containerVariants}
                       initial="hidden"
                       animate="visible"
@@ -160,7 +165,7 @@ export default function HomePage() {
                           key={skill}
                           variants={itemVariants}
                           whileHover={{ scale: 1.05, backgroundColor: 'rgba(var(--primary), 0.2)' }}
-                          className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm border border-primary/20 hover:border-primary/40 transition-all duration-300"
+                          className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs border border-primary/20 hover:border-primary/40 transition-all duration-300"
                         >
                           {skill}
                         </motion.span>

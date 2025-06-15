@@ -2,40 +2,36 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
-import { ComponentPropsWithoutRef, CSSProperties } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
 interface ProjectMarkdownProps {
   content: string;
 }
 
-// Define a type for the style object from react-syntax-highlighter
-// This is a common pattern for these style objects which contain nested CSSProperties
-type SyntaxHighlighterStyle = Record<string, CSSProperties | Record<string, CSSProperties>>;
+interface CodeProps extends ComponentPropsWithoutRef<'code'> {
+  inline?: boolean;
+}
 
 export default function ProjectMarkdown({ content }: ProjectMarkdownProps) {
   return (
-    <div className="prose prose-invert max-w-none prose-headings:font-bold prose-headings:text-foreground prose-p:text-muted prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-blue-400 prose-pre:bg-gray-900 prose-pre:border prose-pre:border-muted prose-pre:rounded-lg">
+    <div className="prose prose-invert max-w-none">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          code({ className, children, ...rest }: Omit<ComponentPropsWithoutRef<'code'>, 'style'>) {
+          code({ inline, className, children, ...props }: CodeProps) {
             const match = /language-(\w+)/.exec(className || '');
-            return match ? (
+            return !inline && match ? (
               <SyntaxHighlighter
-                style={vscDarkPlus as SyntaxHighlighterStyle}
+                // @ts-expect-error - vscDarkPlus type is not properly exported
+                style={vscDarkPlus}
                 language={match[1]}
                 PreTag="div"
-                customStyle={{
-                  margin: '1.5em 0',
-                  borderRadius: '0.5rem',
-                  backgroundColor: 'rgb(17, 17, 17)',
-                }}
-                {...rest}
+                {...props}
               >
                 {String(children).replace(/\n$/, '')}
               </SyntaxHighlighter>
             ) : (
-              <code className="bg-gray-900 px-1.5 py-0.5 rounded text-sm" {...rest}>
+              <code className={className} {...props}>
                 {children}
               </code>
             );

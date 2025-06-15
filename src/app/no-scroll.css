@@ -1,0 +1,20 @@
+main:not([data-page="projects"]) {
+  overflow: hidden !important;
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+main:not([data-page="projects"])::-webkit-scrollbar {
+  display: none !important;
+}
+
+main:not([data-page="projects"]) .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+main:not([data-page="projects"]) .max-w-2xl {
+  margin-bottom: 0;
+} 

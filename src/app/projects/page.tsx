@@ -52,7 +52,7 @@ export default function ProjectsPage() {
 
   return (
     <PageTransition>
-      <main className="min-h-screen bg-background text-foreground pt-32">
+      <main className="min-h-screen bg-background text-foreground pt-32 pb-32">
         <div className="container mx-auto max-w-6xl px-4 sm:px-6 md:px-8 lg:px-12">
           <motion.div
             className="mb-16"

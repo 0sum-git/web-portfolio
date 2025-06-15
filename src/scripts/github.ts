@@ -1,16 +1,8 @@
 import { Octokit } from '@octokit/rest';
 
-// Initialize Octokit with rate limiting and retries
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
-  timeZone: 'UTC',
   baseUrl: 'https://api.github.com',
-  log: {
-    debug: () => {},
-    info: () => {},
-    warn: console.warn,
-    error: console.error,
-  },
 });
 
 export interface Project {
@@ -24,7 +16,6 @@ export interface Project {
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
-    // Validate slug to prevent path traversal
     if (!/^[a-zA-Z0-9-_]+$/.test(slug)) {
       throw new Error('Invalid repository name');
     }
@@ -58,7 +49,6 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
 }
 
 function extractTechnologies(readme: string): string[] {
-  // Look for technologies section in README
   const techSection = readme.match(/## Technologies\n\n([\s\S]*?)(?=\n##|$)/i);
   if (!techSection) return [];
 

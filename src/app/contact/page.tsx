@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Mail, Linkedin, Github } from 'lucide-react';
 import Link from 'next/link';
 import PageTransition from '@/components/PageTransition';
+import { useEffect } from 'react';
 
 const containerVariants = {
   initial: { opacity: 0 },
@@ -28,9 +29,16 @@ const itemVariants = {
 };
 
 export default function ContactPage() {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
     <PageTransition>
-      <main className="min-h-screen bg-background text-foreground p-8 pt-32">
+      <main className="h-screen bg-background text-foreground p-8 flex items-start pt-32" style={{ overflow: 'hidden' }}>
         <div className="container mx-auto max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
