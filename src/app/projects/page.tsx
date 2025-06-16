@@ -11,6 +11,9 @@ interface GithubRepo {
   url: string;
   stars: number;
   language: string | null;
+  languages: {
+    [key: string]: number;
+  };
   updated_at: string;
   topics: string[];
 }

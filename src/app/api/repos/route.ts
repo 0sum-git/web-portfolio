@@ -2,17 +2,6 @@ import { NextResponse } from 'next/server';
 
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME;
 
-const projectTechnologies: Record<string, string[]> = {
-  portfolio: ['Next.js', 'TypeScript', 'Tailwind CSS', 'React', 'Node.js'],
-  'crypto-tracker': ['React', 'TypeScript', 'Tailwind CSS', 'CoinGecko API'],
-  'weather-app': ['React', 'TypeScript', 'OpenWeather API', 'Tailwind CSS'],
-  'todo-app': ['React', 'TypeScript', 'Tailwind CSS', 'LocalStorage'],
-  'chat-app': ['React', 'TypeScript', 'Firebase', 'Tailwind CSS'],
-  blog: ['Next.js', 'TypeScript', 'MDX', 'Tailwind CSS'],
-  ecommerce: ['Next.js', 'TypeScript', 'Stripe', 'Tailwind CSS', 'Prisma'],
-  dashboard: ['React', 'TypeScript', 'Chart.js', 'Tailwind CSS'],
-};
-
 interface GithubRepo {
   name: string;
   description: string;
@@ -46,15 +35,43 @@ export async function GET() {
 
     const data = await res.json();
 
-    const repos = data.map((repo: GithubRepo) => ({
-      name: repo.name,
-      description: repo.description,
-      url: repo.html_url,
-      stars: repo.stargazers_count,
-      language: repo.language,
-      topics: projectTechnologies[repo.name] || repo.topics || [],
-      updated_at: repo.updated_at,
-    }));
+    const repos = await Promise.all(
+      data.map(async (repo: GithubRepo) => {
+        // Buscar informações detalhadas das linguagens
+        const languagesRes = await fetch(
+          `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/languages`,
+          {
+            headers: {
+              Accept: 'application/vnd.github.v3+json',
+              ...(process.env.GITHUB_TOKEN && {
+                Authorization: `token ${process.env.GITHUB_TOKEN}`,
+              }),
+            },
+          }
+        );
+
+        let languages = {};
+        if (languagesRes.ok) {
+          const languagesData = await languagesRes.json() as Record<string, number>;
+          const total = Object.values(languagesData).reduce((a: number, b: number) => a + b, 0);
+          languages = Object.entries(languagesData).reduce((acc, [lang, bytes]) => {
+            acc[lang] = (bytes / total) * 100;
+            return acc;
+          }, {} as Record<string, number>);
+        }
+
+        return {
+          name: repo.name,
+          description: repo.description,
+          url: repo.html_url,
+          stars: repo.stargazers_count,
+          language: repo.language,
+          languages,
+          topics: repo.topics || [],
+          updated_at: repo.updated_at,
+        };
+      })
+    );
 
     return NextResponse.json(repos);
   } catch (error: unknown) {

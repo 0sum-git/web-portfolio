@@ -10,6 +10,9 @@ interface ProjectCardProps {
     description: string | null;
     stars: number;
     language: string | null;
+    languages: {
+      [key: string]: number;
+    };
     topics: string[];
     updated_at: string;
   };
@@ -68,16 +71,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <p className="text-muted line-clamp-3">{project.description || 'no description'}</p>
         <div className="flex flex-col gap-2">
           <div className="tech-tags-container">
-            {project.language && (
+            {Object.entries(project.languages || {}).map(([lang]) => (
               <motion.span
+                key={lang}
                 className="tech-tag"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 10 }}
               >
-                {project.language}
+                {lang}
               </motion.span>
-            )}
-            {project.topics.map((topic, index) => (
+            ))}
+          </div>
+          <div className="tech-tags-container">
+            {project.topics.slice(0, 5).map((topic, index) => (
               <motion.span
                 key={index}
                 className="tech-tag"
@@ -87,6 +93,15 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 {topic}
               </motion.span>
             ))}
+            {project.topics.length > 5 && (
+              <motion.span
+                className="tech-tag"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+              >
+                +{project.topics.length - 5}
+              </motion.span>
+            )}
           </div>
         </div>
         <div className="flex items-center justify-between mt-auto">

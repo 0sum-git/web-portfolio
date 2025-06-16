@@ -99,6 +99,7 @@ textarea {
   flex-wrap: wrap;
   gap: 0.5rem;
   padding-bottom: 0.5rem;
+  min-height: 2rem;
 }
 
 .tech-tag {
@@ -109,12 +110,15 @@ textarea {
   color: var(--muted);
   transition: all 0.2s;
   white-space: nowrap;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  background: rgba(99, 110, 114, 0.05);
 }
 
 .tech-tag:hover {
   border-color: var(--foreground);
   color: var(--foreground);
+  background: rgba(99, 110, 114, 0.1);
 }
 
 /* Estilo para as estrelas */
