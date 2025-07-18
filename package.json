@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
     "analyze": "ANALYZE=true next build",
-    "schedule": "ts-node src/scripts/schedule.ts"
+    "schedule": "ts-node src/scripts/schedule.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.0",
