@@ -1,12 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  env: {
-    GITHUB_TOKEN: process.env.GITHUB_TOKEN,
-    GITHUB_USERNAME: process.env.GITHUB_USERNAME,
-  },
   images: {
-    domains: ['avatars.githubusercontent.com'],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
   },

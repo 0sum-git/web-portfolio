@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  content     String
+  technologies String[]
+  githubUrl   String?
+  createdAt   DateTime @default(now())
+  files       File[]
+  markdownFiles MarkdownFile[]
+}
+
+model File {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?  @db.ObjectId
+  createdAt DateTime @default(now())
+}
+
+model MarkdownFile {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  filename  String
+  content   String
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?  @db.ObjectId
+  createdAt DateTime @default(now())
+}

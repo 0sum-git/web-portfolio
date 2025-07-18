@@ -76,7 +76,7 @@ export default function HomePage() {
                     <Linkedin className="w-6 h-6" />
                   </motion.div>
                 </Link>
-                <Link href="https://github.com/rodrigofernandesribeiro" target="_blank">
+                <Link href="https://github.com/0sum-git" target="_blank">
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: -5 }}
                     whileTap={{ scale: 0.95 }}
@@ -153,13 +153,11 @@ export default function HomePage() {
                       {[
                         'java',
                         'python',
-                        'typescript',
-                        'react',
-                        'next.js',
-                        'flutter',
+                        'dart',
                         'reverse engineering',
                         'ethical hacking',
                         'network security',
+                        'bash',
                       ].map(skill => (
                         <motion.span
                           key={skill}

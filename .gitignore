@@ -1,34 +1,86 @@
+# Dependencies
 /node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
+
+# Testing
+/coverage
+/.nyc_output
+
+# Next.js
+/.next/
+/out/
+/build
+.next-env.d.ts
+
+# Production
+/dist
+/build
+
+# Environment Variables
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env*.local
 
+# Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-/build
-/dist
-/.next
-/out
+# Logs
+logs
+*.log
 
+# OS
 .DS_Store
 *.pem
 
-.idea/
-.vscode/
+# IDE and editors
+/.idea
+/.vscode
 *.swp
 *.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-workspace
+.history/
 
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Prisma
+/prisma/migrations/
+/prisma/.env
+/prisma/dev.db
+/prisma/dev.db-journal
+/src/generated/prisma
+
+# Bundle analyzer
+/analyze/
+
+# Cache
 .cache/
 .npm/
 .eslintcache
+.stylelintcache
+.prettiercache
 
-/coverage
+# Misc
+*.tmp
+*.bak
+.vercel
+.turbo
 
-*.log
-*.tmp 
+# User uploads
+/public/uploads/
+
+# Temporary files
+/tmp/

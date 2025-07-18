@@ -3,6 +3,7 @@
 import { Github } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { memo } from 'react';
 
 interface ProjectCardProps {
   project: {
@@ -15,9 +16,11 @@ interface ProjectCardProps {
     };
     topics: string[];
     updated_at: string;
+    technologies?: string[]; // optional array of technologies to display as tags
   };
 }
 
+// animation variants for card
 const cardVariants = {
   initial: {
     opacity: 0,
@@ -40,7 +43,19 @@ const cardVariants = {
   },
 };
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+// reusable tag component to reduce repetition
+const Tag = memo(({ children }: { children: React.ReactNode }) => (
+  <motion.span
+    className="tech-tag"
+    whileHover={{ scale: 1.05 }}
+    transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+  >
+    {children}
+  </motion.span>
+));
+Tag.displayName = 'Tag';
+
+const ProjectCard = ({ project }: ProjectCardProps) => {
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent) => {
@@ -69,42 +84,35 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       <div className="project-card-content">
         <h2 className="text-xl font-bold">{project.name}</h2>
         <p className="text-muted line-clamp-3">{project.description || 'no description'}</p>
-        <div className="flex flex-col gap-2">
+        {Array.isArray(project.technologies) && project.technologies.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-0">
+            {project.technologies.map((tech, idx) => (
+              <span key={idx} className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs border border-primary/20">
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+        <div className="flex flex-col gap-1">
+          {/* First row - always for languages, always present even if empty */}
           <div className="tech-tags-container">
             {Object.entries(project.languages || {}).map(([lang]) => (
-              <motion.span
-                key={lang}
-                className="tech-tag"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-              >
-                {lang}
-              </motion.span>
+              <Tag key={lang}>{lang}</Tag>
             ))}
           </div>
-          <div className="tech-tags-container">
-            {project.topics.slice(0, 5).map((topic, index) => (
-              <motion.span
-                key={index}
-                className="tech-tag"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-              >
-                {topic}
-              </motion.span>
-            ))}
-            {project.topics.length > 5 && (
-              <motion.span
-                className="tech-tag"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-              >
-                +{project.topics.length - 5}
-              </motion.span>
-            )}
-          </div>
+          {/* Second row - always for topics, only present if there are topics */}
+          {project.topics.length > 0 && (
+            <div className="tech-tags-container">
+              {project.topics.slice(0, 5).map((topic, index) => (
+                <Tag key={index}>{topic}</Tag>
+              ))}
+              {project.topics.length > 5 && (
+                <Tag>+{project.topics.length - 5}</Tag>
+              )}
+            </div>
+          )}
         </div>
-        <div className="flex items-center justify-between mt-auto">
+        <div className="flex items-center justify-between mt-2">
           <div className="stars-tag">⭐ {project.stars}</div>
           <div className="text-sm text-muted">
             last updated:{' '}
@@ -118,4 +126,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
     </motion.div>
   );
-}
+};
+
+// export memoized component to prevent unnecessary re-renders
+export default memo(ProjectCard);

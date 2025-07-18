@@ -1,15 +1,16 @@
 #  portfolio website
 
-portfolio website built with next.js and tailwind css, featuring smooth animations and a clean design :)
+portfolio website built with next.js and tailwind css, featuring smooth animations with a clean design :)
 
 ## 📋 features
 
 - dark/light mode
 - smooth page transitions
 - dynamic project showcase
-- github integration
+- database-driven content management
 - interactive ui elements
 - animated components
+- responsive design
 
 ## 🛠️ technologies used
 
@@ -18,18 +19,18 @@ portfolio website built with next.js and tailwind css, featuring smooth animatio
 - framer-motion - animations
 - lucide-react - icons
 - typescript - type safety
-- github api - project data
+- prisma - database orm
+- mongodb - database
 
 ## 📥 installation
 
 ensure you have node.js installed on your system.
 
-clone the repository:
-
-```bash
-git clone https://github.com/0sum-git/portfolio
-```
-
+1. clone or download the repository
+2. set up environment variables:
+   - create a `.env` file in the root directory
+   - add `DATABASE_URL` for your mongodb connection
+   - add `ADMIN_CODE` for admin authentication
 install dependencies:
 
 ```bash
@@ -62,22 +63,45 @@ npm start
 src/
 ├── app/              # app router pages
 ├── components/       # react components
-├── lib/             # utility functions
-├── styles/          # global styles
-└── types/           # typescript types
+├── data/             # data files and models
+├── lib/              # utility functions
+└── scripts/          # utility scripts
+prisma/               # database schema (at root level)
 ```
 
 ## 💾 data management
 
-projects are fetched from github api and stored in a structured format:
+projects are stored in mongodb and managed through prisma orm:
 
-```typescript
-interface project {
-  name: string;
-  description: string;
-  stars: number;
-  language: string;
-  topics: string[];
-  updated_at: string;
+```
+model Project {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  content     String
+  technologies String[]
+  githubUrl   String?
+  createdAt   DateTime @default(now())
+  files       File[]
 }
 ```
+
+## 🔐 admin authentication
+
+this project includes an admin authentication system that protects administrative functions:
+
+set the `ADMIN_CODE` environment variable with a secure password
+
+the admin authentication is used for content management operations like creating or updating projects.
+
+## 🔧 production deployment
+
+this portfolio is production-ready and can be deployed to platforms like vercel or netlify:
+
+1. connect your repository to your preferred hosting platform
+2. configure all required environment variables in the hosting platform
+   - `DATABASE_URL` for mongodb connection
+   - `ADMIN_CODE` for admin authentication
+3. deploy the application
+
+for optimal performance, ensure your mongodb instance is properly configured and accessible from your hosting environment.
