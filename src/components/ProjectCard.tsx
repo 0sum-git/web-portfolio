@@ -85,11 +85,9 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         <h2 className="text-xl font-bold">{project.name}</h2>
         <p className="text-muted line-clamp-3">{project.description || 'no description'}</p>
         {Array.isArray(project.technologies) && project.technologies.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-0">
+          <div className="tech-tags-container">
             {project.technologies.map((tech, idx) => (
-              <span key={idx} className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs border border-primary/20">
-                {tech}
-              </span>
+              <Tag key={idx}>{tech}</Tag>
             ))}
           </div>
         )}

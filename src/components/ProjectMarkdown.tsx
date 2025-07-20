@@ -37,13 +37,25 @@ export function ProjectMarkdown({ content }: ProjectMarkdownProps) {
               </code>
             );
           },
-          h1: ({ children }) => <h1 className="text-4xl mt-8 mb-4">{children}</h1>,
-          h2: ({ children }) => <h2 className="text-3xl mt-8 mb-4">{children}</h2>,
+          h1: ({ children }) => <h1 className="text-4xl mt-8 mb-4 pb-2 border-b border-muted">{children}</h1>,
+          h2: ({ children }) => <h2 className="text-3xl mt-8 mb-4 pb-2 border-b border-muted">{children}</h2>,
           h3: ({ children }) => <h3 className="text-2xl mt-6 mb-3">{children}</h3>,
           p: ({ children }) => <p className="my-4 leading-relaxed">{children}</p>,
-          ul: ({ children }) => <ul className="list-disc pl-6 my-4">{children}</ul>,
-          ol: ({ children }) => <ol className="list-decimal pl-6 my-4">{children}</ol>,
-          li: ({ children }) => <li className="my-2">{children}</li>,
+          ul: ({ children, ...props }) => (
+            <ul className="list-disc pl-6 my-4" {...props}>
+              {children}
+            </ul>
+          ),
+          ol: ({ children, ...props }) => (
+            <ol className="list-decimal pl-6 my-4" {...props}>
+              {children}
+            </ol>
+          ),
+          li: ({ children, ...props }) => (
+            <li className="my-2" {...props}>
+              {children}
+            </li>
+          ),
           blockquote: ({ children }) => (
             <blockquote className="border-l-4 border-muted pl-4 my-4 italic">{children}</blockquote>
           ),

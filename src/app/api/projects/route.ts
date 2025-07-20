@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { isAdminAuthenticated, handleApiError } from '@/lib/auth';
 
 export async function GET() {
   try {
@@ -9,12 +10,18 @@ export async function GET() {
     });
     return NextResponse.json(projects);
   } catch (error) {
-    console.error('API /api/projects GET error:', error);
+    // Log the error but don't expose it in the response
+    handleApiError(error, 'Failed to fetch projects');
+    // Still return an empty array with 200 status for public-facing endpoints
     return NextResponse.json([], { status: 200 });
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  // Check if the request is authenticated
+  const authCheck = isAdminAuthenticated(request);
+  if (authCheck) return authCheck;
+
   try {
     const { title, description, content, technologies, githubUrl } = await request.json();
     if (!title || !description || !content) {
@@ -37,12 +44,16 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(project);
   } catch (error) {
-    console.error('API /api/projects POST error:', error);
-    return NextResponse.json({ error: 'Failed to create project', details: String(error) }, { status: 500 });
+    const errorResponse = handleApiError(error, 'Failed to create project');
+    return NextResponse.json(errorResponse, { status: 500 });
   }
 }
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
+  // Check if the request is authenticated
+  const authCheck = isAdminAuthenticated(request);
+  if (authCheck) return authCheck;
+
   try {
     const { id, title, description, content, technologies, githubUrl } = await request.json();
     if (!id) {
@@ -72,7 +83,7 @@ export async function PUT(request: Request) {
     
     return NextResponse.json(project);
   } catch (error) {
-    console.error('API /api/projects PUT error:', error);
-    return NextResponse.json({ error: 'Failed to update project', details: String(error) }, { status: 500 });
+    const errorResponse = handleApiError(error, 'Failed to update project');
+    return NextResponse.json(errorResponse, { status: 500 });
   }
 }

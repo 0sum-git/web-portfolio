@@ -31,7 +31,7 @@ ensure you have node.js installed on your system.
    - create a `.env` file in the root directory
    - add `DATABASE_URL` for your mongodb connection
    - add `ADMIN_CODE` for admin authentication
-install dependencies:
+   install dependencies:
 
 ```bash
 npm install
@@ -105,3 +105,4 @@ this portfolio is production-ready and can be deployed to platforms like vercel 
 3. deploy the application
 
 for optimal performance, ensure your mongodb instance is properly configured and accessible from your hosting environment.
+

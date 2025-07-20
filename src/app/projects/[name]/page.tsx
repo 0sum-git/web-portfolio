@@ -67,9 +67,24 @@ export default async function ProjectPage({ params }: { params: Promise<{ name: 
                     />
                   );
                 },
-                h1: (props) => <h1 className="text-4xl mt-8 mb-4 font-bold" {...props} />,
-                h2: (props) => <h2 className="text-3xl mt-8 mb-4 font-bold" {...props} />,
+                h1: (props) => <h1 className="text-4xl mt-8 mb-4 pb-2 border-b border-muted font-bold" {...props} />,
+                h2: (props) => <h2 className="text-3xl mt-8 mb-4 pb-2 border-b border-muted font-bold" {...props} />,
                 h3: (props) => <h3 className="text-2xl mt-6 mb-3 font-bold" {...props} />,
+                ul: ({ children, ...props }) => (
+                  <ul className="list-disc pl-6 my-4" {...props}>
+                    {children}
+                  </ul>
+                ),
+                ol: ({ children, ...props }) => (
+                  <ol className="list-decimal pl-6 my-4" {...props}>
+                    {children}
+                  </ol>
+                ),
+                li: ({ children, ...props }) => (
+                  <li className="my-2" {...props}>
+                    {children}
+                  </li>
+                ),
                 code: (props) => (
                   <code className="bg-zinc-800 text-green-400 px-1 py-0.5 rounded" {...props} />
                 ),
