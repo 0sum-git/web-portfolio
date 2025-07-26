@@ -57,6 +57,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ name: 
                 img: ({ src = '', alt, ...props }) => {
                   const isLocal = !src.startsWith('http://') && !src.startsWith('https://') && !src.startsWith('/');
                   const finalSrc = isLocal ? `/uploads/${src}` : src;
+                  
                   return (
                     <img
                       src={finalSrc}

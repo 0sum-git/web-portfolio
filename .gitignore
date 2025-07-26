@@ -79,8 +79,6 @@ next-env.d.ts
 .vercel
 .turbo
 
-# User uploads
-/public/uploads/
 
 # Temporary files
 /tmp/
